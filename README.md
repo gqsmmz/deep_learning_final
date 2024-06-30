@@ -12,9 +12,9 @@
 
 # 3 实验结果
 
-#### 3.1 三个方法的比较
+### 3.1 三个方法的比较
 
-##### 自监督（resnet18，在cifar10上训练，在cifar100上评估）：
+#### 自监督（resnet18，在cifar10上训练，在cifar100上评估）：
 
 pretrained=False，训练时的batch_size 为 512，初始学习率 learning_rate 为 0.6。使用了随机梯度下降 (SGD)作为优化器，使用了 LambdaLR 调度器根据给定的 lambda 函数动态调整学习率，且 lambda 函数使用余弦退火学习率调整方案，并设置为从初始学习率降到最低学习率 1e-3。微调时的batch_size 为 32，初始学习率 learning_rate 为 0.075，参数更新和学习率下降策略和预训练时一样。测试时的batch size也为32.
 
@@ -25,7 +25,7 @@ python test.py --train_type supervised --dataset cifar100 --test_num_epochs 100 
 ```
 最终测试损失为 1.5800, 测试准确率为 68.96%。网络参数文件下载链接：https://drive.google.com/file/d/1NDzFZsoRcj6Sg4uxfybiiII0INHYGLRH/view?usp=drive_link
 
-##### 监督（resnet18，在imagenet上训练，在cifar100上评估）：
+#### 监督（resnet18，在imagenet上训练，在cifar100上评估）：
 
 pretrained=True，预训练时batch size为128，初始学习率 learning_rate 为 0.001。采用周期为50的余弦退火学习率调整策略。微调时epoch 为 30，batch_size 为 128，分为两个阶段。第一阶段采用 0.01 的初始学习率learning_rate、周期为 50 的余弦退火学习率调整策略、SGD 参数更新方法。第二阶段采用 0.001的初始学习率 learning_rate、周期为 50 的余弦退火学习率调整策略、SGD 参数更新方法。
 
@@ -37,7 +37,7 @@ python test.py --train_type supervised --dataset cifar100 --test_num_epochs 5 --
 
 最终测试损失 0.711，测试准确率为 80.260%。网络参数文件下载链接：https://drive.google.com/file/d/1ex41aaMlJfZ5XiCNQf9KSsgI_4F1Gpy0/view?usp=drive_link
 
-##### 从零开始训练的监督（resneet18，pretrained=False，在cifar100上训练，在cifar100上测验）
+#### 从零开始训练的监督（resneet18，pretrained=False，在cifar100上训练，在cifar100上测验）
 
 pretrained=False，预训练时epoch为50，batch size为128，初始学习率 learning_rate 为 0.001。采用周期为50的余弦退火学习率调整策略。微调时epoch 为 5，batch_size 为 128，分为两个阶段。第一阶段采用 0.01 的初始学习率learning_rate、周期为 50 的余弦退火学习率调整策略、SGD 参数更新方法。第二阶段采用 0.001的初始学习率 learning_rate、周期为 50 的余弦退火学习率调整策略、SGD 参数更新方法。
 
@@ -49,7 +49,7 @@ python test.py --train_type supervised --dataset cifar100 --test_num_epochs 100 
 
 在 cifar100 的测试集上的 Loss 为 1.201，准确率为 68.480%。网络参数文件下载链接：https://drive.google.com/file/d/1depRuN4D4NSICYGN7XVopH32wk6n2X7Q/view?usp=drive_link
 
-#### 探索不同超参数组合的自监督训练：
+### 3.2 探索不同超参数组合的自监督训练：
 
 在不同规模的CIFAR-10数据集以及其他超参数组合上进行自监督预训练，并评测其在CIFAR-100数据集上的性能。用data_scale表示选取cifar10数据集的规模（1.0就是整个数据集），还可以修改batch size、epochs、初始learning_rate，用网格搜索方法探索最佳的参数组合方式。
 
