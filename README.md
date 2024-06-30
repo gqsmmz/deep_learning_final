@@ -14,7 +14,7 @@
 
 #### 自监督（resnet18，在cifar10上训练，在cifar100上评估）：
 
-batch_size 为 512，初始学习率 learning_rate 为 0.6。使用了随机梯度下降 (SGD)作为优化器，使用了 LambdaLR 调度器根据给定的 lambda 函数动态调整学习率，且 lambda 函数使用余弦退火学习率调整方案，并设置为从初始学习率降到最低学习率 1e-
+训练时的batch_size 为 512，初始学习率 learning_rate 为 0.6。使用了随机梯度下降 (SGD)作为优化器，使用了 LambdaLR 调度器根据给定的 lambda 函数动态调整学习率，且 lambda 函数使用余弦退火学习率调整方案，并设置为从初始学习率降到最低学习率 1e-3。微调时的batch_size 为 32，初始学习率 learning_rate 为 0.075，参数更新和学习率下降策略和预训练时一样。测试时的batch size也为32.
 
 ```
 python train.py 
@@ -32,9 +32,11 @@ python test.py --train_type supervised --dataset cifar100 --test_num_epochs 5 --
 
 #### 从零开始训练的监督（resneet18，pretrained=False，在cifar100上训练，在cifar100上测验）
 
+```
 python train.py --train_type supervised --dataset cifar100 --epochs 100 --pretrained false
 
 python test.py --train_type supervised --dataset cifar100 --test_num_epochs 100 --train_dataset cifar100 --model_path ***.pth
+```
 
 ### 探索不同超参数组合的自监督训练：
 
