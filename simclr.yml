@@ -1,0 +1,40 @@
+hydra:
+  job_logging:
+#    formatters:
+#      simple:
+#        format: '[]'
+    root:
+      handlers: [file, console]  # logging to file only.
+  run:
+    #dir: logs/${dataset}
+    dir: logs_cifar10_change1/SimCLR/${dataset}
+
+
+
+dataset: cifar10
+data_dir:  ./data #/home/datadisk3/lss/zhangli_final/mission_1/data/tiny-imagenet/tiny-imagenet-200
+
+# model
+backbone: resnet18 # or resnet34, resnet50
+projection_dim: 128 # "[...] to project the representation to a 128-dimensional latent space"
+
+# train options
+
+seed: 42 # sacred handles automatic seeding when passed in the config
+batch_size: 256 #训练用512，测试用32.图片数据在代码中改
+workers: 16
+epochs: 1000
+log_interval: 50
+
+
+# loss options
+optimizer: 'sgd' # or LARS (experimental)
+learning_rate: 0.3 # initial lr = 0.3 * batch_size / 256.训练用0.6，测试用0.075
+momentum: 0.9
+weight_decay: 1.0e-6 # "optimized using LARS [...] and weight decay of 10−6"
+temperature: 0.5 # see appendix B.7.: Optimal temperature under different batch sizes
+
+
+# finetune options
+finetune_epochs: 100
+load_epoch: 1000  # checkpoint for finetune
