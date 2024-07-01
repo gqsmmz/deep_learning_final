@@ -55,7 +55,7 @@ python test.py --train_type supervised --dataset cifar100 --test_num_epochs 100 
 
 手动更改simclr_train.py里关于cifar10数据集的规模参数以及其他超参数，本任务中主要做了如下超参数探索：使用50%的预训练数据集cifar10，batch size=256，初始learning_rate=0.3，选择预训练epoch为250的参数文件。
 
-网络参数文件下载链接：https://drive.google.com/file/d/1VT9VcjWZuk0iyPsw0895VMIhfZ_2vTH2/view?usp=drive_link
+最终测试损失为1.7087, 测试准确率为68.88%，相较于之前自监督超参数组合下略有提升。网络参数文件下载链接：https://drive.google.com/file/d/1VT9VcjWZuk0iyPsw0895VMIhfZ_2vTH2/view?usp=drive_link
 
 
 
